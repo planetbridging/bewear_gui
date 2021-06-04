@@ -1,0 +1,39 @@
+{
+  "files": {
+    "main.css": "/static/css/main.16dfddec.chunk.css",
+    "main.js": "/static/js/main.439023c4.chunk.js",
+    "main.js.map": "/static/js/main.439023c4.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.f758688d.js",
+    "runtime-main.js.map": "/static/js/runtime-main.f758688d.js.map",
+    "static/js/2.77ae7656.chunk.js": "/static/js/2.77ae7656.chunk.js",
+    "static/js/2.77ae7656.chunk.js.map": "/static/js/2.77ae7656.chunk.js.map",
+    "static/js/3.5a538120.chunk.js": "/static/js/3.5a538120.chunk.js",
+    "static/js/3.5a538120.chunk.js.map": "/static/js/3.5a538120.chunk.js.map",
+    "static/js/4.1dbf7eb5.chunk.js": "/static/js/4.1dbf7eb5.chunk.js",
+    "static/js/4.1dbf7eb5.chunk.js.map": "/static/js/4.1dbf7eb5.chunk.js.map",
+    "static/js/5.aece65e9.chunk.js": "/static/js/5.aece65e9.chunk.js",
+    "static/js/5.aece65e9.chunk.js.map": "/static/js/5.aece65e9.chunk.js.map",
+    "static/js/6.34778f29.chunk.js": "/static/js/6.34778f29.chunk.js",
+    "static/js/6.34778f29.chunk.js.map": "/static/js/6.34778f29.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.16dfddec.chunk.css.map": "/static/css/main.16dfddec.chunk.css.map",
+    "static/js/2.77ae7656.chunk.js.LICENSE.txt": "/static/js/2.77ae7656.chunk.js.LICENSE.txt",
+    "static/js/3.5a538120.chunk.js.LICENSE.txt": "/static/js/3.5a538120.chunk.js.LICENSE.txt",
+    "static/js/4.1dbf7eb5.chunk.js.LICENSE.txt": "/static/js/4.1dbf7eb5.chunk.js.LICENSE.txt",
+    "static/js/5.aece65e9.chunk.js.LICENSE.txt": "/static/js/5.aece65e9.chunk.js.LICENSE.txt",
+    "static/media/2019hackathon.663aa66b.jpg": "/static/media/2019hackathon.663aa66b.jpg",
+    "static/media/802.14ac516e.svg": "/static/media/802.14ac516e.svg",
+    "static/media/blockedup_menu.c2bf0031.jpg": "/static/media/blockedup_menu.c2bf0031.jpg",
+    "static/media/galaga.b4b37292.jpg": "/static/media/galaga.b4b37292.jpg",
+    "static/media/logo.6ce24c58.svg": "/static/media/logo.6ce24c58.svg",
+    "static/media/me.e345e67f.jpg": "/static/media/me.e345e67f.jpg",
+    "static/media/mygriffithdegree.1500f1b1.jpg": "/static/media/mygriffithdegree.1500f1b1.jpg",
+    "static/media/thecrappingbook1.e8100435.jpg": "/static/media/thecrappingbook1.e8100435.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f758688d.js",
+    "static/js/2.77ae7656.chunk.js",
+    "static/css/main.16dfddec.chunk.css",
+    "static/js/main.439023c4.chunk.js"
+  ]
+}
