@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'cvelookup.dart';
+import 'showCve.dart';
 
 void main() {
   runApp(MaterialApp(
     title: 'Japres',
     initialRoute: '/',
     routes: {
+      ShowCvelookup.routeName: (context) => ShowCvelookup(),
       '/': (context) => SplashScreen(),
     },
   ));
@@ -19,12 +21,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late AnimationController _controller;
+  var searchResults = false;
+  var searchResultsData;
   Tween<double> _tween = Tween(begin: 0.8, end: 0.9);
   ObjCvelookup objCvelookup = new ObjCvelookup();
   List<String> LstPlaceholders = [
-    "CVE-2003-0132",
+    "2003-0132",
     "a:apache:http_server:2.0.28",
-    "CVE-2017-0144"
+    "2017-0144"
   ];
   @override
   void initState() {
@@ -65,6 +69,32 @@ class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin {
     });
   }
 
+  btnSubmit(var value, BuildContext context) async {
+    //print(_selectedIndex);
+    switch (_selectedIndex) {
+      case 0:
+        {
+          var cvesearch = await objCvelookup.reqCveSearch(value, context);
+          setState(() {
+            searchResults = true;
+            searchResultsData = cvesearch;
+          });
+        }
+        break;
+
+      case 1:
+        {
+          //statements;
+        }
+        break;
+      case 2:
+        {
+          //statements;
+        }
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +131,7 @@ class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin {
                                   )),
                             ),
                             Flexible(
-                                flex: 1,
+                                flex: 5,
                                 child: Container(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -126,6 +156,7 @@ class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin {
                                                     value.isEmpty) {
                                                   return 'Please enter some text';
                                                 }
+                                                btnSubmit(value, context);
                                                 return null;
                                               },
                                             ),
@@ -161,7 +192,10 @@ class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin {
                                             )),
                                           ],
                                         ),
-                                      )
+                                      ),
+                                      if (searchResults &&
+                                          searchResultsData != null)
+                                        searchResultsData
                                       /*Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
@@ -175,10 +209,10 @@ class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin {
                                         new BorderRadius.circular(16.0),
                                     color: Colors.black.withOpacity(0.5),
                                   ),
-                                ))
+                                )),
 
                             // _widgetOptions.elementAt(_selectedIndex),
-                          ]))
+                          ])),
                 ])),
           ]),
         )),
