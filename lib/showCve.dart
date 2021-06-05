@@ -44,7 +44,7 @@ class _ShowCvelookup extends State<ShowCvelookup>
       isLoaded = true;
     }*/
 
-    print(args);
+    //print(args);
     return Scaffold(
       appBar: AppBar(
         title: Text("Cvelookup results"),

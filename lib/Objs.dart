@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'dart:convert';
 
 Future<http.Response> getDynData(String link, String path, var parms) {
   return http.get(Uri.https(link, path, parms));
@@ -15,6 +16,37 @@ Future<http.Response> getCve(cve) {
       .get(Uri.parse('https://api.pressback.space/cpelookup?cve=' + cve));
 }
 
+Future<http.Response> getMsf(cve) {
+  return http
+      .get(Uri.parse('https://api.pressback.space/cpelookup?msf=' + cve));
+}
+
+getCveExploits(String cve) async {
+  var d = await getCve(cve);
+
+  var j = jsonDecode(d.body);
+  try {
+    var jd = j["cve"]["lstexploits"];
+    return jd;
+  } catch (e) {
+    print("unable to get getCveExploits");
+    print(e);
+  }
+}
+
+getCveMsf(String cve) async {
+  var d = await getMsf(cve);
+
+  var j = jsonDecode(d.body);
+  try {
+    var jd = j["data"];
+    return jd;
+  } catch (e) {
+    print("unable to get getCveExploits");
+    print(e);
+  }
+}
+
 class ObjCve {
   String cve = "";
   String year = "";
@@ -27,7 +59,7 @@ class ObjCve {
   String availabilityImpact = "";
   String description = "";
   List<String> lstCpe = [];
-  List<String> lstexploits = [];
+  List<dynamic> lstexploits = [];
   int cardnumber = 0;
   ObjCve(String c, String y, String s, String av, String ac, a, String ci,
       String ii, ai, String d, String cpe) {
@@ -44,6 +76,11 @@ class ObjCve {
     if (cpe.contains("cpe:2.3:")) {
       var split = cpe.replaceAll("cpe:2.3:", "").split(':::');
       lstCpe = split;
+    }
+  }
+  setExploits(var items) {
+    for (var i in items) {
+      print(i);
     }
   }
 }

@@ -56,9 +56,9 @@ class ObjCvelookup {
                       children: <Widget>[
                     for (var i = 0; i < jd.length; i++)
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             //print(jd[i]);
                             ObjCve tmpocve = new ObjCve(
                               jd[i]["CVEName"],
@@ -73,8 +73,14 @@ class ObjCvelookup {
                               jd[i]["Description"],
                               jd[i]["LstCpe"],
                             );
-                            Navigator.pushNamed(context, '/showCve',
-                                arguments: tmpocve);
+                            var exploits =
+                                await getCveExploits(jd[i]["CVEName"]);
+                            tmpocve.lstexploits = exploits;
+
+                            var msf = await getCveMsf(jd[i]["CVEName"]);
+                            print(msf);
+                            /*Navigator.pushNamed(context, '/showCve',
+                                arguments: tmpocve);*/
                           },
                           child: Text(
                             jd[i]["CVEName"],

@@ -4,7 +4,7 @@ import 'showCve.dart';
 
 void main() {
   runApp(MaterialApp(
-    title: 'Japres',
+    title: 'Bewear',
     initialRoute: '/',
     routes: {
       ShowCvelookup.routeName: (context) => ShowCvelookup(),
