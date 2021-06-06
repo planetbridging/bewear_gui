@@ -77,10 +77,10 @@ class ObjCvelookup {
                                 await getCveExploits(jd[i]["CVEName"]);
                             tmpocve.lstexploits = exploits;
 
-                            var msf = await getCveMsf(jd[i]["CVEName"]);
-                            print(msf);
-                            /*Navigator.pushNamed(context, '/showCve',
-                                arguments: tmpocve);*/
+                            //var msf = await getCveMsf(jd[i]["CVEName"]);
+                            //print(msf);
+                            Navigator.pushNamed(context, '/showCve',
+                                arguments: tmpocve);
                           },
                           child: Text(
                             jd[i]["CVEName"],

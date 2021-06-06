@@ -140,11 +140,11 @@ generateCveDisplay(ObjCve tcve) {
     flex: 4,
     child: Padding(
       padding: EdgeInsets.all(16.0),
-      child: SingleChildScrollView(
-          child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
+      //child: SingleChildScrollView
+      child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
             Container(
                 child: Table(
                   border: TableBorder.all(),
@@ -198,7 +198,98 @@ generateCveDisplay(ObjCve tcve) {
                   //borderRadius: new BorderRadius.circular(16.0),
                   color: Colors.black.withOpacity(0.5),
                 ))
-          ])),
+          ]),
     ),
   );
+}
+
+generateExploitsDisplay(ObjCve tcve) {
+  //id,file,description,date,author,type,platform,port
+  if (tcve.lstexploits.length > 0) {
+    return Flexible(
+      flex: 1,
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              for (var t in tcve.lstexploits)
+                Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Container(
+                          child: Table(
+                            border: TableBorder.all(),
+                            defaultVerticalAlignment:
+                                TableCellVerticalAlignment.fill,
+                            children: <TableRow>[
+                              TableRow(
+                                children: <Widget>[
+                                  generateTableCell("id"),
+                                  generateTableCell("type"),
+                                  generateTableCell("platform"),
+                                ],
+                              ),
+                              TableRow(
+                                children: <Widget>[
+                                  generateTableCell(t[0]),
+                                  generateTableCell(t[5]),
+                                  generateTableCell(t[6]),
+                                ],
+                              ),
+                              TableRow(
+                                children: <Widget>[
+                                  generateTableCell(""),
+                                  generateTableCell("file"),
+                                  generateTableCell(""),
+                                ],
+                              ),
+                              TableRow(
+                                children: <Widget>[
+                                  generateTableCell(""),
+                                  generateTableCell(t[1]),
+                                  generateTableCell(""),
+                                ],
+                              ),
+                              TableRow(
+                                children: <Widget>[
+                                  generateTableCell(""),
+                                  generateTableCell("port"),
+                                  generateTableCell(""),
+                                ],
+                              ),
+                              TableRow(
+                                children: <Widget>[
+                                  generateTableCell(""),
+                                  generateTableCell(t[7]),
+                                  generateTableCell(""),
+                                ],
+                              ),
+                            ],
+                          ),
+                          decoration: new BoxDecoration(
+                            //borderRadius: new BorderRadius.circular(16.0),
+                            color: Colors.black.withOpacity(0.5),
+                          ))
+                    ])
+            ]),
+      ),
+    );
+  } else {
+    return Flexible(
+      flex: 4,
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+              Container(child: Text("No exploits found"))
+            ])),
+      ),
+    );
+  }
 }

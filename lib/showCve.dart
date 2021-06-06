@@ -62,7 +62,7 @@ class _ShowCvelookup extends State<ShowCvelookup>
             child: Column(
               children: [
                 Flexible(
-                    flex: 2,
+                    flex: 1,
                     child: Column(children: [
                       Flexible(
                         child: ScaleTransition(
@@ -73,9 +73,23 @@ class _ShowCvelookup extends State<ShowCvelookup>
                             )),
                       ),
                     ])),
-                generateTblTxt(args.cve),
-                generateCveDisplay(args),
-                generateTblTxt(args.description)
+                Flexible(
+                  flex: 4,
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: SingleChildScrollView(
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                          generateTblTxt(args.cve),
+                          generateCveDisplay(args),
+                          generateTblTxt(args.description),
+                          generateTblTxt("Exploits of " + args.cve),
+                          generateExploitsDisplay(args)
+                        ])),
+                  ),
+                ),
               ],
             ),
           )),
