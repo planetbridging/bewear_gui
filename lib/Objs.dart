@@ -16,9 +16,25 @@ Future<http.Response> getCve(cve) {
       .get(Uri.parse('https://api.pressback.space/cpelookup?cve=' + cve));
 }
 
+Future<http.Response> getCpe(cpe) {
+  return http
+      .get(Uri.parse('https://api.pressback.space/cpelookup?cpe=' + cpe));
+}
+
 Future<http.Response> getMsf(cve) {
   return http
       .get(Uri.parse('https://api.pressback.space/cpelookup?msf=' + cve));
+}
+
+Future<http.Response> getMsfCpe(cpe) {
+  return http
+      .get(Uri.parse('https://api.pressback.space/cpelookup?msfcpe=' + cpe));
+}
+
+Future<http.Response> cpeSearch(cpe) {
+  //print('https://api.pressback.space/cpelookup?cpe_search=' + cpe);
+  return http.get(
+      Uri.parse('https://api.pressback.space/cpelookup?cpe_search=' + cpe));
 }
 
 getCveExploits(String cve) async {
@@ -47,6 +63,19 @@ getCveMsf(String cve) async {
   }
 }
 
+getCpeMsf(String cpe) async {
+  var d = await getMsfCpe(cpe);
+
+  var j = jsonDecode(d.body);
+  try {
+    var jd = j["data"];
+    return jd;
+  } catch (e) {
+    print("unable to get getCpeMsf");
+    print(e);
+  }
+}
+
 class ObjCve {
   String cve = "";
   String year = "";
@@ -60,6 +89,7 @@ class ObjCve {
   String description = "";
   List<String> lstCpe = [];
   List<dynamic> lstexploits = [];
+  List<dynamic> lstmsf = [];
   int cardnumber = 0;
   ObjCve(String c, String y, String s, String av, String ac, a, String ci,
       String ii, ai, String d, String cpe) {
@@ -81,6 +111,68 @@ class ObjCve {
   setExploits(var items) {
     for (var i in items) {
       print(i);
+    }
+  }
+}
+
+//exploits row
+//id	file	description	date	author	type	platform	port
+class ObjCpe {
+  List<ObjCve> lstcve = [];
+  List<dynamic> lstmsf = [];
+  String cpe = "";
+  int cveCount = 0;
+  int exploitCount = 0;
+  int msfCount = 0;
+
+  getCveCount() {
+    return this.cveCount.toString();
+  }
+
+  getExCount() {
+    return this.exploitCount.toString();
+  }
+
+  getMsfCount() {
+    return this.msfCount.toString();
+  }
+
+  ObjCpe(String c) {
+    this.cpe = c;
+  }
+  processCpe() async {
+    this.lstmsf = await getCpeMsf(this.cpe);
+    try {
+      var d = await getCpe(this.cpe);
+      var j = jsonDecode(d.body);
+      var jd = j["bulk"];
+      for (var i in jd) {
+        //print(i["data"]["CVEName"]);
+        ObjCve tmpocve = new ObjCve(
+          i["data"]["CVEName"],
+          i["data"]["Year"],
+          i["data"]["Score"],
+          i["data"]["AccessVector"],
+          i["data"]["AccessComplexity"],
+          i["data"]["Authentication"],
+          i["data"]["ConfidentialityImpact"],
+          i["data"]["IntegrityImpact"],
+          i["data"]["AvailabilityImpact"],
+          i["data"]["Description"],
+          "",
+        );
+        tmpocve.lstexploits = i["lstexploits"];
+        lstcve.add(tmpocve);
+        cveCount += 1;
+        exploitCount += tmpocve.lstexploits.length;
+      }
+      msfCount = lstmsf.length;
+      print("cve: " + cveCount.toString());
+      print("ex: " + exploitCount.toString());
+      print("msf: " + msfCount.toString());
+    } catch (e) {
+      print("unable to processCpe");
+      print(e);
     }
   }
 }
@@ -203,7 +295,7 @@ generateCveDisplay(ObjCve tcve) {
   );
 }
 
-generateExploitsDisplay(ObjCve tcve) {
+generateExploitsDisplay(ObjCve tcve, bool showtitle) {
   //id,file,description,date,author,type,platform,port
   if (tcve.lstexploits.length > 0) {
     return Flexible(
@@ -214,6 +306,7 @@ generateExploitsDisplay(ObjCve tcve) {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
+              if (showtitle) generateTblTxt("Exploits of " + tcve.cve),
               for (var t in tcve.lstexploits)
                 Column(
                     mainAxisSize: MainAxisSize.min,
@@ -287,7 +380,7 @@ generateExploitsDisplay(ObjCve tcve) {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-              Container(child: Text("No exploits found"))
+              if (!showtitle) Container(child: Text("No exploits found"))
             ])),
       ),
     );

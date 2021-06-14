@@ -86,7 +86,7 @@ class _ShowCvelookup extends State<ShowCvelookup>
                           generateCveDisplay(args),
                           generateTblTxt(args.description),
                           generateTblTxt("Exploits of " + args.cve),
-                          generateExploitsDisplay(args)
+                          generateExploitsDisplay(args, false)
                         ])),
                   ),
                 ),
