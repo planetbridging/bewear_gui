@@ -139,8 +139,8 @@ class _ShowCpelookup extends State<ShowCpelookup>
                                     AssetImage("assets/imgs/bewear_title.png"),
                               )),
                         ),
+                        generateTblTxt(args.cpe),
                       ])),
-                  generateTblTxt(args.cpe),
                   Flexible(
                     flex: 5,
                     child: Padding(
