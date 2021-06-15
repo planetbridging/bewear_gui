@@ -189,7 +189,7 @@ generateText(String txt) {
           padding: EdgeInsets.all(16.0),
           child: Text(
             txt,
-            style: TextStyle(),
+            style: TextStyle(color: Colors.black),
           )));
 }
 
@@ -224,6 +224,88 @@ generateTblTxt(String txt) {
                 style: TextStyle(color: Colors.black),
               ))),
     ),
+  );
+}
+
+mergeArray(List<dynamic> lst) {
+  String items = "";
+  for (var l in lst) {
+    items += l.toString() + ",";
+  }
+  return items;
+}
+
+//a:apache:http_server:2.0.28
+generateMsf(List<dynamic> msf, bool showtext) {
+  return /*Flexible(
+    flex: 4,
+    child: */
+      Padding(
+    padding: EdgeInsets.all(16.0),
+    //child: SingleChildScrollView
+    child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          for (var m in msf)
+            Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  if (showtext) generateTblTxt(m[1]),
+                  generateTblTxt(m[3]),
+                  Container(
+                      child: Table(
+                        border: TableBorder.all(),
+                        defaultVerticalAlignment:
+                            TableCellVerticalAlignment.fill,
+                        children: <TableRow>[
+                          TableRow(
+                            children: <Widget>[
+                              generateTableCell("Path"),
+                              generateTableCell(m[0]),
+                            ],
+                          ),
+                          TableRow(
+                            children: <Widget>[
+                              generateTableCell("Type"),
+                              generateTableCell(m[2]),
+                            ],
+                          ),
+                          TableRow(
+                            children: <Widget>[
+                              generateTableCell("Arch"),
+                              generateTableCell(m[7]),
+                            ],
+                          ),
+                          TableRow(
+                            children: <Widget>[
+                              generateTableCell("OS"),
+                              generateTableCell(m[8]),
+                            ],
+                          ),
+                          TableRow(
+                            children: <Widget>[
+                              generateTableCell("Ports"),
+                              generateTableCell(mergeArray(m[6])),
+                            ],
+                          ),
+                          TableRow(
+                            children: <Widget>[
+                              generateTableCell("Info"),
+                              generateTableCell(mergeArray(m[9])),
+                            ],
+                          ),
+                        ],
+                      ),
+                      decoration: new BoxDecoration(
+                        //borderRadius: new BorderRadius.circular(16.0),
+                        color: Colors.black.withOpacity(0.5),
+                      )),
+                  generateTblTxt(m[4]),
+                ]),
+        ]),
+    // ),
   );
 }
 

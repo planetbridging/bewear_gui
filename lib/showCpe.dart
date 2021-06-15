@@ -47,7 +47,7 @@ class _ShowCpelookup extends State<ShowCpelookup>
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          generateTblTxt(cpe),
+          //generateTblTxt(cpe),
           for (var i = 0; i < lstcve.length; i++)
             Column(
                 mainAxisSize: MainAxisSize.min,
@@ -97,6 +97,7 @@ class _ShowCpelookup extends State<ShowCpelookup>
     final args = ModalRoute.of(context)!.settings.arguments as ObjCpe;
     lstcve = args.lstcve;
     lstmsf = args.lstmsf;
+    //print(lstmsf);
     cpe = args.cpe;
     /*if (args != null) {
       jData = args;
@@ -108,6 +109,7 @@ class _ShowCpelookup extends State<ShowCpelookup>
     if (jData != "") {
       isLoaded = true;
     }*/
+    //a:apache:http_server:2.0.28
 
     //print(args);
     return Scaffold(
@@ -149,7 +151,9 @@ class _ShowCpelookup extends State<ShowCpelookup>
                           //child: _widgetOptions.elementAt(_selectedIndex),
                           child: Column(children: [
                         if (_selectedIndex == 0) getCveItems(),
-                        if (_selectedIndex == 1) getExploitItems()
+                        if (_selectedIndex == 1) getExploitItems(),
+                        if (_selectedIndex == 2)
+                          for (var m in args.lstmsf) generateMsf(m, true)
                       ])),
                     ),
                   ),

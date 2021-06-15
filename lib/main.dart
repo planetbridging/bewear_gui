@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'cvelookup.dart';
+import 'msflookup.dart';
 import 'cpelookup.dart';
 import 'showCve.dart';
 import 'showCpe.dart';
+import 'showMsf.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -11,6 +13,7 @@ void main() {
     routes: {
       ShowCvelookup.routeName: (context) => ShowCvelookup(),
       ShowCpelookup.routeName: (context) => ShowCpelookup(),
+      ShowMsflookup.routeName: (context) => ShowMsflookup(),
       '/': (context) => SplashScreen(),
     },
   ));
@@ -28,6 +31,7 @@ class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin {
   var searchResultsData;
   Tween<double> _tween = Tween(begin: 0.8, end: 0.9);
   ObjCvelookup objCvelookup = new ObjCvelookup();
+  ObjMsflookup objMsflookup = new ObjMsflookup();
   ObjCpelookup objCpelookup = new ObjCpelookup();
   List<String> LstPlaceholders = [
     "2003-0132",
@@ -97,7 +101,11 @@ class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin {
         break;
       case 2:
         {
-          //statements;
+          var cvesearch = await objMsflookup.reqCveSearch(value, context);
+          setState(() {
+            searchResults = true;
+            searchResultsData = cvesearch;
+          });
         }
         break;
     }
