@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bewear_gui">
+    package="space.pressback.bewear_gui">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="bewear_gui"
+        android:label="bewear"
         android:icon="@mipmap/ic_launcher">
         
         <activity
