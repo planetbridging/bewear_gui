@@ -8,6 +8,7 @@ import 'showMsf.dart';
 
 void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     title: 'Bewear',
     initialRoute: '/',
     routes: {
@@ -33,6 +34,7 @@ class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin {
   ObjCvelookup objCvelookup = new ObjCvelookup();
   ObjMsflookup objMsflookup = new ObjMsflookup();
   ObjCpelookup objCpelookup = new ObjCpelookup();
+  var txtController = TextEditingController();
   List<String> LstPlaceholders = [
     "2003-0132",
     "a:apache:http_server:2.0.28",
@@ -160,6 +162,7 @@ class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin {
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
                                             TextFormField(
+                                              controller: txtController,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.white),
@@ -192,18 +195,56 @@ class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin {
                                               padding:
                                                   const EdgeInsets.symmetric(
                                                       vertical: 16.0),
-                                              child: ElevatedButton(
-                                                onPressed: () {
-                                                  // Validate will return true if the form is valid, or false if
-                                                  // the form is invalid.
-                                                  if (_formKey.currentState!
-                                                      .validate()) {
-                                                    // Process data.
-                                                  }
-                                                },
-                                                child: Text(
-                                                  "Submit",
-                                                ),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.all(16.0),
+                                                    child: ElevatedButton(
+                                                      onPressed: () {
+                                                        txtController.clear();
+                                                      },
+                                                      child: Text(
+                                                        "Clear",
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.all(16.0),
+                                                    child: ElevatedButton(
+                                                      onPressed: () {
+                                                        // Validate will return true if the form is valid, or false if
+                                                        // the form is invalid.
+                                                        if (_formKey
+                                                            .currentState!
+                                                            .validate()) {
+                                                          // Process data.
+                                                        }
+                                                      },
+                                                      child: Text(
+                                                        "Submit",
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.all(16.0),
+                                                    child: ElevatedButton(
+                                                      onPressed: () {
+                                                        txtController.text =
+                                                            LstPlaceholders[
+                                                                _selectedIndex];
+                                                      },
+                                                      child: Text(
+                                                        "Example",
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             )),
                                           ],
